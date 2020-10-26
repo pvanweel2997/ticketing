@@ -6,6 +6,8 @@ import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 
+import { errorHanlder } from './middlewares/error-handler';
+
 
 const app = express();
 app.use(json());
@@ -14,6 +16,7 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+app.use(errorHanlder);
 
 app.listen(3000, () => {
   console.log('listening on port 3000!!');
