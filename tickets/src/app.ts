@@ -3,10 +3,6 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
-import { currentUserRouter } from './routes/current-user';
-import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-import { signupRouter } from './routes/signup';
 
 import { errorHanlder, NotFoundError } from '@pvwtickets/common';
 
@@ -19,10 +15,7 @@ app.use(cookieSession({
   secure: process.env.NODE_ENV !== 'test'
 })
 );
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
+
 
 app.all('*', async (req, res) => {
   throw new NotFoundError()
