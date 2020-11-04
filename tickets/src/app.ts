@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHanlder, NotFoundError, currentUser } from '@pvwtickets/common';
 import { createTicketRouter } from './routes/new';
+import { showTicketRouter } from './routes/show';
 
 
 
@@ -17,6 +18,7 @@ app.use(cookieSession({
 );
 app.use(currentUser);
 app.use(createTicketRouter);
+app.use(showTicketRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError()
