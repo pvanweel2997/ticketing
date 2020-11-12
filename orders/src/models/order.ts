@@ -1,15 +1,17 @@
 import mongoose from 'mongoose';
+import { OrderStatus } from '@pvwtickets/common';
+import { TicketDoc } from './ticket';
 
 interface OrderAttrs {
   userid:string;
-  status: string;
+  status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
   userid:string;
-  status: string;
+  status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
 }
@@ -25,7 +27,9 @@ const orderSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    required: true
+    required: true,
+    enum: Object.values(OrderStatus),
+    default: OrderStatus.Created
   },
   expiresAt: {
     type: mongoose.Schema.Types.Date
