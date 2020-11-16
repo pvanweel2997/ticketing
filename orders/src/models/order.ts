@@ -2,15 +2,17 @@ import mongoose from 'mongoose';
 import { OrderStatus } from '@pvwtickets/common';
 import { TicketDoc } from './ticket';
 
+export { OrderStatus };
+
 interface OrderAttrs {
-  userid:string;
+  userId:string;
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
 }
 
 interface OrderDoc extends mongoose.Document {
-  userid:string;
+  userId:string;
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
