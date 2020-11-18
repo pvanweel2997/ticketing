@@ -58,6 +58,7 @@ router.post('/api/orders',
       id: order.id,
       status: order.status,
       userId: order.userId,
+      version: order.ticket.version,
       expiresAt: order.expiresAt.toISOString(),
       ticket: {
         id: ticket.id,
