@@ -143,11 +143,8 @@ it('does not allow a reserved ticket to be edited', async () => {
   });
 
   const ticket = await Ticket.findById(response.body.id);
-  if (!ticket) {
-    throw new Error('Ticket not found');
-  }
-  ticket.set({ orderId: mongoose.Types.ObjectId().toHexString()});
-  await ticket.save();
+  ticket!.set({ orderId: mongoose.Types.ObjectId().toHexString()});
+  await ticket!.save();
 
   await request(app)
     .put(`/api/tickets/${response.body.id}`)
