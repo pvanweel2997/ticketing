@@ -4,7 +4,8 @@ import {
   validateRequest,
   NotFoundError,
   requireAuth,
-  NotAuthorizedError
+  NotAuthorizedError,
+  BadRequestError
 } from '@pvwtickets/common';
 import { Ticket } from '../models/ticket';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
@@ -29,11 +30,16 @@ validateRequest,
     throw new NotFoundError();
   };
 
-  if (ticket.userId != req.currentUser!.id) {
-    throw new NotAuthorizedError();
+  if (ticket.orderId) {
+    throw new BadRequestError('Cannot edit a reserved ticket');
   }
 
-  ticket.set({
+
+  if (ticket.userId != req.currentUser!.id) {
+    throw new NotAuthorizedError();
+  };
+
+    ticket.set({
     title: req.body.title,
     price: req.body.price
   });
