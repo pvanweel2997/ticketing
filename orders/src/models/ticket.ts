@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose , { Schema } from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { idText } from 'typescript';
 import { Order,OrderStatus } from './order';
 
 interface TicketAttrs {
@@ -50,13 +49,14 @@ ticketSchema.plugin(updateIfCurrentPlugin);
 //   };
 //   done();
 // });
-
+// @ts-ignore
 ticketSchema.statics.findByEvent = (event: { id:string, version: number }) => {
   return Ticket.findOne({
     _id: event.id,
     version: event.version -1
   })
 };
+// @ts-ignore
 ticketSchema.statics.build = (attrs: TicketDoc ) => {
   return new Ticket({
     _id: attrs.id,
@@ -65,7 +65,7 @@ ticketSchema.statics.build = (attrs: TicketDoc ) => {
     version: attrs.version
   });
 }
-
+// @ts-ignore
 ticketSchema.methods.isReserved = async function() {
   // this === the ticket document that we just called 'isReserved' on.
   const existingOrder = await Order.findOne({
