@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-import { OrderStatus } from '@pvwtickets/common';
+import { OrderCreatedListener } from '../src/events/listeners/order-created-listener';
+import { OrderCancelledListener } from '../src/events/listeners/order-cancelled-listener';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -37,6 +38,10 @@ const start = async () => {
     // check for signal interrupt or signal termination
     process.on('SIGINT',() =>   natsWrapper.client.close());
     process.on('SIGTERM',() =>   natsWrapper.client.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
+    
 
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
