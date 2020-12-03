@@ -3,6 +3,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHanlder, NotFoundError, currentUser } from '@pvwtickets/common';
+import { createChargeRouter } from './routes/new';
 
 
 
@@ -15,7 +16,7 @@ app.use(cookieSession({
 })
 );
 app.use(currentUser);
-
+app.use(createChargeRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError()
