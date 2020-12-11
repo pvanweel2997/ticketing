@@ -1,0 +1,4 @@
+Running instructions:
+1) add 127.0.0.1 ticketing.dev to the hosts file located in C:\Windows\System32\drivers\etc
+2) Go to C:\microWithNodeJsReact\ticketing in a command prompt and run "skaffold dev"
+3) go to https://ticketing.dev/ - if you get security message then type anywhere on webpage "thisisunsafe".
